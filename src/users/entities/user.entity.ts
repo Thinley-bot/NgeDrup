@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn,Column, IsNull } from "typeorm";
+import { Entity, PrimaryGeneratedColumn,Column, IsNull, CreateDateColumn, Timestamp, UpdateDateColumn } from "typeorm";
 
 import { Roles } from "src/utility/common/user-roles.enum";
 import { UserId } from "../types/create-user.type";
@@ -32,4 +32,10 @@ export class User {
         default:[Roles.USER]
     })
     roles:Roles;
+
+    @CreateDateColumn()
+    createdAt:Timestamp
+
+    @UpdateDateColumn()
+    updatedAt:Timestamp
 }

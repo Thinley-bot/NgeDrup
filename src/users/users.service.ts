@@ -23,15 +23,23 @@ export class UsersService {
     catch(error){ return error.message }
   }
 
-  findOne(id: UserId) {
-    try{ 
-      return this.userRepository.findOne({ where:{ id}})
-    }
-    catch(error){
-      return error.message
+  async findOne(id?: User['id'], email?: string) {
+    try {
+      const whereClause = {};
+      
+      if (id) {
+        whereClause['id'] = id;
+      }
+      if (email) {
+        whereClause['email'] = email;
+      }
+      
+      return await this.userRepository.findOne({ where: whereClause });
+    } catch (error) {
+      return error.message;
     }
   }
-  
+    
   update(id:UserId, updateUserDto: UpdateUserDto) {
     return `This action updates a #${id} user`;
   }
