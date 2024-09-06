@@ -3,7 +3,6 @@ import { Body, Controller, HttpCode, Post, UseGuards } from '@nestjs/common';
 import { UserSignUpDto } from './dto/user-signup.dto';
 import { AuthService } from './auth.service';
 import { UserSignInDto } from './dto/user-signin.dto';
-import { AuthGuard } from '@nestjs/passport';
 import { LocalGuard } from './guard/local.guard';
 
 @Controller('auth')

@@ -1,5 +1,5 @@
 import { JwtService } from '@nestjs/jwt';
-import { Injectable, BadRequestException, UnauthorizedException } from '@nestjs/common';
+import { Injectable, BadRequestException, UnauthorizedException, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
@@ -35,16 +35,19 @@ private readonly usersService:UsersService) {}
   async validateUser(userCredentials: UserSignInDto): Promise<any> {
     const { email, password } = userCredentials;
     const user = await this.userRepository.createQueryBuilder('users').addSelect('users.password').where('users.email = :email', { email }).getOne();
+    if(!user){
+      return undefined
+    }
     if (user && await bcrypt.compare(password, user.password)) {
       const { password, ...result } = user;
       return result;
     }
-    return null;
+    return undefined
   }
 
   async login(userLoginDto: UserSignInDto) {
     const existingUser = await this.validateUser(userLoginDto);
-    if (!existingUser) {
+    if (existingUser===undefined) {
       throw new UnauthorizedException("Invalid email or password!");
     }
     const {email,...result}=existingUser;
@@ -52,9 +55,7 @@ private readonly usersService:UsersService) {}
   }
 
   async validateJwtUser(email:string):Promise<Object>{
-    const user = await this.usersService.findOne(undefined,email);
-    console.log(user)
-    const currentUser = { email:email, role:user.role }
+    const currentUser = await this.usersService.findOne(undefined,email);
     return currentUser;
   }
 }

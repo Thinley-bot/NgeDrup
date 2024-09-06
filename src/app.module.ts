@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { dataSourceOptions } from 'db/data-source';
@@ -6,6 +6,7 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
+import { CurrentUserMiddleware } from './utility/common/middlewares/currentuser.middleware';
 
 @Module({
   imports: [ConfigModule.forRoot({
@@ -24,4 +25,10 @@ import { JwtModule } from '@nestjs/jwt';
   controllers: [],
   providers: [],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(CurrentUserMiddleware)
+      .forRoutes({path:"*",method:RequestMethod.ALL});
+  }
+}
