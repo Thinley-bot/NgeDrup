@@ -1,7 +1,8 @@
-import { Entity, PrimaryGeneratedColumn,Column, IsNull, CreateDateColumn, Timestamp, UpdateDateColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn,Column, IsNull, CreateDateColumn, Timestamp, UpdateDateColumn, OneToMany } from "typeorm";
 
 import { Role } from "src/utility/common/user-roles.enum";
 import { UserId } from "../types/create-user.type";
+import { Category } from "src/categories/entities/category.entity";
 
 @Entity("users")
 export class User {
@@ -38,4 +39,7 @@ export class User {
 
     @UpdateDateColumn()
     updatedAt:Timestamp
+
+    @OneToMany(()=>Category,(category)=>category.createdBy)
+    category:Category
 }
