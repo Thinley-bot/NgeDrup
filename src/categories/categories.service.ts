@@ -17,9 +17,7 @@ export class CategoriesService {
     await this.categoryRepository.save(createResponse);
     return "Category created successfully."
     }
-    catch(error){
-      return error.message
-    }
+    catch(error){ return error.message }
   }
 
   async findAll() {
@@ -34,9 +32,7 @@ export class CategoriesService {
       }
       return existingCategory;
     }
-    catch(error){
-      return error.message
-    }
+    catch(error){ return error.message }
   }
 
   async update(id: number, updateCategoryDto: UpdateCategoryDto) {
@@ -50,13 +46,14 @@ export class CategoriesService {
       }
       return "Category updated successfully."
     }
-    catch(error){
-      return error.message
-    }
+    catch(error){ return error.message }
   }
 
   async remove(id: number) {
     const existingCategory = await this.findOne(id);
+    if(!existingCategory){
+      return new NotFoundException("The category Doesn't exist.")
+    }
     return await this.categoryRepository.remove(existingCategory);
   }
 }

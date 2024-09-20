@@ -8,6 +8,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { CurrentUserMiddleware } from './utility/common/middlewares/currentuser.middleware';
 import { CategoriesModule } from './categories/categories.module';
+import { ProductsModule } from './products/products.module';
 
 @Module({
   imports: [ConfigModule.forRoot({
@@ -22,7 +23,7 @@ import { CategoriesModule } from './categories/categories.module';
     inject: [ConfigService],
     global: true,
   }),
-  UsersModule, AuthModule, CategoriesModule],
+  UsersModule, AuthModule, CategoriesModule, ProductsModule],
   controllers: [],
   providers: [],
 })

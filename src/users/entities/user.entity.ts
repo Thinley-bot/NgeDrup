@@ -3,6 +3,7 @@ import { Entity, PrimaryGeneratedColumn,Column, IsNull, CreateDateColumn, Timest
 import { Role } from "src/utility/common/user-roles.enum";
 import { UserId } from "../types/create-user.type";
 import { Category } from "src/categories/entities/category.entity";
+import { Product } from "src/products/entities/product.entity";
 
 @Entity("users")
 export class User {
@@ -41,5 +42,8 @@ export class User {
     updatedAt:Timestamp
 
     @OneToMany(()=>Category,(category)=>category.createdBy)
-    category:Category
+    category:Category[]
+
+    @OneToMany(()=>Product,(product)=>product.addedBy)
+    product:Product[]
 }
