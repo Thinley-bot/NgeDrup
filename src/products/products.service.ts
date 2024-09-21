@@ -4,14 +4,19 @@ import { UpdateProductDto } from './dto/update-product.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from './entities/product.entity';
 import { Repository } from 'typeorm';
+import { User } from 'src/users/entities/user.entity';
+import { CategoriesService } from 'src/categories/categories.service';
 
 @Injectable()
 export class ProductsService { 
-  constructor(@InjectRepository(Product) private readonly productRepository:Repository<Product>){}
-  async create(createProductDto: CreateProductDto):Promise<String> {
+  constructor(@InjectRepository(Product) private readonly productRepository:Repository<Product>,private readonly categoryService:CategoriesService){}
+  async create(createProductDto: CreateProductDto,currentUser:User):Promise<String> {
     try{
-      const createProductResponse = await  this.productRepository.save(createProductDto)
-      if(!createProductDto){ return "Product creation failed." }
+      const category = await this.categoryService.findOne(+createProductDto.category)
+      let product=await this.productRepository.create(createProductDto);
+      product.addedBy=currentUser;
+      product.category=category;
+      await  this.productRepository.save(product)
       return "Product created successfully."
     }
     catch(error){ 
@@ -20,13 +25,13 @@ export class ProductsService {
   }
 
   async findAll():Promise<Product[]> {
-    try{ return await this.productRepository.find() }
+    try{ return await this.productRepository.find({relations:{addedBy:true,category:true}}) }
     catch(error){ return error.message }
   }
 
   async findOne(id: number):Promise<Object | Product> {
     try{
-      const findProductResponse = await this.productRepository.findOne({where : {id}})
+      const findProductResponse = await this.productRepository.findOne({where : {id},relations:{addedBy:true,category:true}})
       if(findProductResponse === null ){
         return new NotFoundException(`Product with ID ${id} not found.`)
       }

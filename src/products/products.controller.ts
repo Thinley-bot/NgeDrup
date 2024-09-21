@@ -6,6 +6,8 @@ import { JWTAuthGuard } from 'src/auth/guard/jwt.guard';
 import { RolesGuard } from 'src/auth/guard/auth.guard';
 import { Roles } from 'src/utility/common/decorators/roles.decorators';
 import { Role } from 'src/utility/common/user-roles.enum';
+import { CurrentUser } from 'src/utility/common/decorators/currentuser.decorator';
+import { User } from 'src/users/entities/user.entity';
 
 @Controller('products')
 export class ProductsController {
@@ -14,8 +16,8 @@ export class ProductsController {
   @Roles(Role.ADMIN)
   @UseGuards(JWTAuthGuard,RolesGuard)
   @Post()
-  create(@Body() createProductDto: CreateProductDto) {
-    return this.productsService.create(createProductDto);
+  create(@Body() createProductDto: CreateProductDto, @CurrentUser() currentUser:User) {
+    return this.productsService.create(createProductDto,currentUser);
   }
 
   @Get()

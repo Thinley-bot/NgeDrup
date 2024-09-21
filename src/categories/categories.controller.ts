@@ -16,7 +16,7 @@ export class CategoriesController {
   @Post()
   @Roles(Role.ADMIN)
   @UseGuards(JWTAuthGuard,RolesGuard)
-  create(@Body() createCategoryDto: CreateCategoryDto,@CurrentUser() currentUser:User) {
+  create(@Body() createCategoryDto: CreateCategoryDto, @CurrentUser() currentUser:User) {
     return this.categoriesService.create(createCategoryDto,currentUser);
   }
 

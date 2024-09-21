@@ -10,8 +10,8 @@ declare global{
             currentUser?:User;
         }
     }
-}
-
+  }
+  
 interface JwtPayload {
   email: string;
 }
