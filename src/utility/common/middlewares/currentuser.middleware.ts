@@ -1,7 +1,9 @@
-import { Injectable, NestMiddleware, UnauthorizedException } from '@nestjs/common';
+import { Injectable, NestMiddleware} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { Request, Response, NextFunction } from 'express';
 import * as jwt from 'jsonwebtoken';
+import { Request, Response, NextFunction } from 'express';
+
+
 import { UsersService } from 'src/users/users.service';
 
 declare global{

@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn,Column, IsNull, CreateDateColumn, Timestamp, UpdateDateColumn, OneToMany } from "typeorm";
+import { Entity, PrimaryGeneratedColumn,Column,CreateDateColumn, Timestamp, UpdateDateColumn, OneToMany } from "typeorm";
 
 import { Role } from "src/utility/common/user-roles.enum";
 import { UserId } from "../types/create-user.type";

@@ -1,7 +1,6 @@
 export type UserId={
     id:number;
 }
-
 export type CreateUserType={
     firstname:string;
     middlename?:string;

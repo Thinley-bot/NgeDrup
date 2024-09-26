@@ -1,5 +1,4 @@
 import { IsNotEmpty, IsNumber, IsString } from "class-validator"
-import { Product } from "src/products/entities/product.entity"
 
 export class CreateReviewDto {
     @IsNotEmpty({message:"The ratings cannot be empty."})

@@ -1,7 +1,8 @@
+import {Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, Timestamp, TreeChildren, UpdateDateColumn} from "typeorm"
+
 import { Category } from "src/categories/entities/category.entity"
 import { Review } from "src/reviews/entities/review.entity"
 import { User } from "src/users/entities/user.entity"
-import {Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, Timestamp, TreeChildren, UpdateDateColumn} from "typeorm"
 
 @Entity({name:"products"})
 export class Product {

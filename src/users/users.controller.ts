@@ -1,15 +1,16 @@
+import { ApiTags } from '@nestjs/swagger';
 import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
-import { UsersService } from './users.service';
+
+import { CurrentUser } from 'src/utility/common/decorators/currentuser.decorator';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { UserId } from './types/create-user.type';
 import { JWTAuthGuard } from 'src/auth/guard/jwt.guard';
-import { CurrentUser } from 'src/utility/common/decorators/currentuser.decorator';
-import { User } from './entities/user.entity';
-import { ApiTags } from '@nestjs/swagger';
 import { Roles } from 'src/utility/common/decorators/roles.decorators';
 import { Role } from 'src/utility/common/user-roles.enum';
 import { RolesGuard } from 'src/auth/guard/auth.guard';
+import { User } from './entities/user.entity';
+import { UserId } from './types/create-user.type';
+import { UsersService } from './users.service';
 
 @ApiTags('User')
 @Controller('users')

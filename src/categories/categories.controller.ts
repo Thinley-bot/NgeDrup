@@ -1,13 +1,14 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
-import { UpdateCategoryDto } from './dto/update-category.dto';
 import { CurrentUser } from 'src/utility/common/decorators/currentuser.decorator';
-import { User } from 'src/users/entities/user.entity';
 import { JWTAuthGuard } from 'src/auth/guard/jwt.guard';
 import { RolesGuard } from 'src/auth/guard/auth.guard';
 import { Roles } from 'src/utility/common/decorators/roles.decorators';
 import { Role } from 'src/utility/common/user-roles.enum';
+import { UpdateCategoryDto } from './dto/update-category.dto';
+import { User } from 'src/users/entities/user.entity';
 
 @Controller('categories')
 export class CategoriesController {
