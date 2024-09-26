@@ -1,6 +1,7 @@
 import { Category } from "src/categories/entities/category.entity"
+import { Review } from "src/reviews/entities/review.entity"
 import { User } from "src/users/entities/user.entity"
-import {Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, Timestamp, TreeChildren, UpdateDateColumn} from "typeorm"
+import {Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, Timestamp, TreeChildren, UpdateDateColumn} from "typeorm"
 
 @Entity({name:"products"})
 export class Product {
@@ -33,8 +34,11 @@ export class Product {
 
     @ManyToOne(()=>User,(user)=>user.product)
     @JoinColumn({ name: "createdBy" })
-    addedBy: User;
+    addedBy: User
 
     @ManyToOne(()=>Category,(category)=>category.product)
     category:Category
+
+    @OneToMany(()=>Review,(review)=>review.products)
+    reviews:Review[]
 }

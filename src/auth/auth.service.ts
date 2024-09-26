@@ -1,9 +1,9 @@
-import { JwtService } from '@nestjs/jwt';
-import { Injectable, BadRequestException, UnauthorizedException, NotFoundException } from '@nestjs/common';
+import { Injectable, BadRequestException, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 
+import { JwtService } from '@nestjs/jwt';
 import { UserSignUpDto } from './dto/user-signup.dto';
 import { User } from 'src/users/entities/user.entity';
 import { UserSignInDto } from './dto/user-signin.dto';

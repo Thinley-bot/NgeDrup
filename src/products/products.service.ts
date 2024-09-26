@@ -29,7 +29,7 @@ export class ProductsService {
     catch(error){ return error.message }
   }
 
-  async findOne(id: number):Promise<Object | Product> {
+  async findOne(id: number) {
     try{
       const findProductResponse = await this.productRepository.findOne({where : {id},relations:{addedBy:true,category:true}})
       if(findProductResponse === null ){

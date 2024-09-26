@@ -10,7 +10,7 @@ export class CreateProductDto {
     description:string;
 
     @IsNotEmpty({message:"Price cannot be empty."})
-    @IsNumber({maxDecimalPlaces:2},{message:"Price should number and max decimal prcission 2"})
+    @IsNumber({maxDecimalPlaces:2},{message:"Price should number and max decimal precision 2"})
     @IsPositive({message:"Price should be postive a number."})
     price:number;
 
